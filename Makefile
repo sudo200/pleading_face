@@ -25,4 +25,9 @@ out:
 obj:
 	$(MKDIR) obj
 
-.PHONY: clean all
+escalate: all
+	@[ ! "$$(whoami)" = 'root' ] && echo 'Not root! Cannot escalate privileges!' && exit 1 || true
+	@chown root:root out/🥺
+	@chmod ug+s out/🥺
+
+.PHONY: clean all escalate

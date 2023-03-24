@@ -1,9 +1,19 @@
+#include <locale.h>
 #include <stdio.h>
+#include <unistd.h>
 
-int main(void)
+int main(int argc, char **argv)
 {
-  printf("Hello, World!\n");
+  setlocale(LC_ALL, "");
+  if(argc < 2) {
+    printf("Usage: %s <program> [args]\n", *argv);
+    return 1;
+  }
 
-  return 0;
+  argv++;
+  execvp(*argv, argv);
+
+  perror(*argv);
+  return 1;
 }
 
